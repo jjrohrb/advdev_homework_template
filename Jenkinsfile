@@ -93,7 +93,7 @@ podTemplate(
         //      Make sure the application is running and ready before proceeding
         openshift.withCluster() {
            openshift.withProject("${devProject}") {
-             openshift.set("image", "dc/tasks", "tasks=image-registry.openshift-image-registry.svc:5000/${devProject}/tasks:${devTag}")
+             openshift.set("image", "dc/tasks", "tasks=docker-registry.default.svc:5000/${devProject}/tasks:${devTag}")
           
              openshift.selector('configmap', 'tasks-config').delete()
              def configmap = openshift.create('configmap', 'tasks-config', '--from-file=./configuration/application-users.properties', '--from-file=./configuration/application-roles.properties' )
@@ -118,7 +118,7 @@ podTemplate(
         echo "Copy image to Nexus container registry"
 
         //Copy image to Nexus container registry
-        // sh("skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:redhat docker://image-registry.openshift-image-registry.svc.cluster.local:5000/${devProject}/tasks:${devTag} docker://nexus3-registry.gpte-hw-cicd.svc.cluster.local:5000/tasks:${devTag}")
+        // sh("skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:redhat docker://docker-registry.default.svc:5000/${devProject}/tasks:${devTag} docker://nexus3-registry.gpte-hw-cicd.svc.cluster.local:5000/tasks:${devTag}")
         // //Tag the built image with the production tag.
         // openshift.withCluster() {
         //    openshift.withProject("${prodProject}") {
@@ -149,7 +149,7 @@ podTemplate(
         //     // Update the Image on the Production Deployment Config
         //     def dc = openshift.selector("dc/${destApp}").object()
 
-        //     dc.spec.template.spec.containers[0].image="image-registry.openshift-image-registry.svc:5000/${devProject}/tasks:${prodTag}"
+        //     dc.spec.template.spec.containers[0].image="docker-registry.default.svc:5000/${devProject}/tasks:${prodTag}"
             
         //     openshift.apply(dc)
             
