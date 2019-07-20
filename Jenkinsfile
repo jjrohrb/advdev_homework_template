@@ -47,17 +47,17 @@ podTemplate(
         sh "${mvnCmd}  clean package -DskipTests=true" 
       }
 
-      // TBD: The next two stages should run in parallel
+      //The next two stages should run in parallel
       stage("Parallel Stage") {
         parallel (
           // Using Maven run the unit tests
-          stage('Unit Tests') {
+          "Unit Tests": {
             echo "Running Unit Tests"
             //Execute Unit Tests
             sh "${mvnCmd}  test"
           },
           // Using Maven to call SonarQube for Code Analysis
-          stage('Code Analysis') {
+          "Code Analysis": {
             echo "Running Code Analysis"
             //Execute Sonarqube Tests
             sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag}"
