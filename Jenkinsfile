@@ -6,7 +6,7 @@ podTemplate(
   containers: [
     containerTemplate(
       name: "jnlp",
-      image: "docker-registry.default.svc:5000/${GUID}-jenkins/jenkins-agent-appdev",
+      image: "docker-registry.default.svc:5000/8a0c-jenkins/jenkins-agent-appdev",
       resourceRequestMemory: "1Gi",
       resourceLimitMemory: "2Gi",
       resourceRequestCpu: "1",
@@ -36,8 +36,8 @@ podTemplate(
       def devTag  = "${version}-" + currentBuild.number
       // Set the tag for the production image: version
       def prodTag =  "${version}"
-      def devProject  = "${GUID}-tasks-dev"
-      def prodProject = "${GUID}-tasks-prod"
+      def devProject  = "8a0c-tasks-dev"
+      def prodProject = "8a0c-tasks-prod"
 
       // Using Maven build the war file
       // Do not run tests in this step
