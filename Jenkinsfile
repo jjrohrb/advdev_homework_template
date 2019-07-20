@@ -84,7 +84,7 @@ podTemplate(
         //     // "--from-file=http://nexus3.gpte-hw-cicd.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.war"
         //     openshift.tag("tasks:latest", "tasks:${devTag}")
         //   }
-        }
+        // }
       }
 
       // Deploy the built image to the Development Environment.
