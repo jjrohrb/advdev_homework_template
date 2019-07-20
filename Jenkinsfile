@@ -79,7 +79,7 @@ podTemplate(
         //Build Image, tag Image
         openshift.withCluster() {
           openshift.withProject("${devProject}") {
-            openshift.selector("bc", "tasks").startBuild("--from-file=http://nexus3.gpte-hw-cicd.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.wa", "--wait=true")
+            openshift.selector("bc", "tasks").startBuild("--from-file=http://nexus3.gpte-hw-cicd.svc.cluster.local:8081/repository/releases/org/jboss/quickstarts/eap/tasks/${version}/tasks-${version}.war", "--wait=true")
             openshift.tag("tasks:latest", "tasks:${devTag}")
           }
         }
