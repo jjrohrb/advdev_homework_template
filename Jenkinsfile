@@ -49,21 +49,20 @@ podTemplate(
 
       // TBD: The next two stages should run in parallel
       stage("Do nest two stages in parallel") {
-        failFast true
         parallel {
           // Using Maven run the unit tests
           stage('Unit Tests') {
             echo "Running Unit Tests"
             //Execute Unit Tests
             sh "${mvnCmd}  test"
-          }
-
+          },
           // Using Maven to call SonarQube for Code Analysis
           stage('Code Analysis') {
             echo "Running Code Analysis"
             //Execute Sonarqube Tests
             sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag}"
-          }
+          },
+          failFast: true
         }
       }
 
