@@ -48,8 +48,8 @@ podTemplate(
       }
 
       // TBD: The next two stages should run in parallel
-      stage("Do nest two stages in parallel") {
-        parallel {
+//      stage("Do nest two stages in parallel") {
+ //       parallel {
           // Using Maven run the unit tests
           stage('Unit Tests') {
             echo "Running Unit Tests"
@@ -62,9 +62,9 @@ podTemplate(
             //Execute Sonarqube Tests
             sh "${mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube-gpte-hw-cicd.apps.na311.openshift.opentlc.com -Dsonar.projectName=${JOB_BASE_NAME} -Dsonar.projectVersion=${devTag}"
           }
-          failFast: true
-        }
-      }
+  //        failFast: true
+  //      }
+  //    }
 
       // Publish the built war file to Nexus
       stage('Publish to Nexus') {
