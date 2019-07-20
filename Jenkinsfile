@@ -118,13 +118,13 @@ podTemplate(
         echo "Copy image to Nexus container registry"
 
         //Copy image to Nexus container registry
-        // sh("skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:redhat docker://docker-registry.default.svc:5000/${devProject}/tasks:${devTag} docker://nexus3-registry.gpte-hw-cicd.svc.cluster.local:5000/tasks:${devTag}")
-        // //Tag the built image with the production tag.
-        // openshift.withCluster() {
-        //    openshift.withProject("${prodProject}") {
-        //    	openshift.tag("${devProject}/tasks:${devTag}", "${devProject}/tasks:${prodTag}")
-        //    }
-        //  }
+        sh("skopeo copy --src-tls-verify=false --dest-tls-verify=false --src-creds openshift:\$(oc whoami -t) --dest-creds admin:redhat docker://docker-registry.default.svc:5000/${devProject}/tasks:${devTag} docker://nexus3-registry.gpte-hw-cicd.svc.cluster.local:5000/tasks:${devTag}")
+        //Tag the built image with the production tag.
+        openshift.withCluster() {
+           openshift.withProject("${prodProject}") {
+           	openshift.tag("${devProject}/tasks:${devTag}", "${devProject}/tasks:${prodTag}")
+           }
+         }
       }
 
       // Blue/Green Deployment into Production
