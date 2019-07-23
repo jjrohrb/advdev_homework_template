@@ -3,6 +3,7 @@ podTemplate(
   label: "skopeo-pod",
   cloud: "openshift",
   inheritFrom: "maven",
+  serviceAccount: "jenkins",
   containers: [
     containerTemplate(
       name: "jnlp",
@@ -10,7 +11,7 @@ podTemplate(
       resourceRequestMemory: "1Gi",
       resourceLimitMemory: "2Gi",
       resourceRequestCpu: "1",
-      resourceLimitCpu: "2"
+      resourceLimitCpu: "2",
     )
   ]
 ) {
