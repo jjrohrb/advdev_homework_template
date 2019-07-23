@@ -33,7 +33,7 @@ items:
     source:
       type: "Git"
       git:
-        uri: "${REPO}/openshift-tasks"
+        uri: "${REPO}"
     strategy:
       type: "JenkinsPipeline"
       jenkinsPipelineStrategy:
