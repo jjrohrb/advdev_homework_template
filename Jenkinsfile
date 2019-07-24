@@ -105,7 +105,7 @@ podTemplate(
              def dc_version = dc.status.latestVersion
              def rc = openshift.selector("rc", "tasks-${dc_version}").object()
 
-             openshift.set("env", "dc/tasks", "VERSION=${devTag} (tasks-dev)")
+             openshift.set("env", "dc/tasks", "--overwrite=true", "VERSION=${devTag} (tasks-dev)")
 
              echo "Waiting for ReplicationController tasks-${dc_version} to be ready"
              while (rc.spec.replicas != rc.status.readyReplicas) {
