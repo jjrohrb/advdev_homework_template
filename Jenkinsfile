@@ -99,15 +99,13 @@ podTemplate(
              openshift.selector('configmap', 'tasks-config').delete()
              def configmap = openshift.create('configmap', 'tasks-config', '--from-file=./configuration/application-users.properties', '--from-file=./configuration/application-roles.properties' )
 
+             openshift.set("env", "dc/tasks", "'VERSION=${devTag} (tasks-dev)'")
+
              openshift.selector("dc", "tasks").rollout().latest();
        
              def dc = openshift.selector("dc", "tasks").object()
              def dc_version = dc.status.latestVersion
              def rc = openshift.selector("rc", "tasks-${dc_version}").object()
-
-             openshift.set("env", "dc/tasks", "'VERSION=${devTag} (tasks-dev)'")
-             
-             openshift.selector("dc", "tasks").rollout().latest();
 
              echo "Waiting for ReplicationController tasks-${dc_version} to be ready"
              while (rc.spec.replicas != rc.status.readyReplicas) {
